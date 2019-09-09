@@ -1,0 +1,25 @@
+-- name: apt-get update
+hosts: 
+  gather_facts: false
+
+  tasks: 
+  - name: apt-get update
+    raw: apt-get update -y
+   - name: apt-get upgrade
+     raw: apt-get upgrade
+   - name: install nginx fcgi
+     raw: apt-get install nginx-full uwsgi uwsgi-plugin-python -y
+   - name: install postgresql
+     raw: apt-get install postgresql -y 
+   - name: cd /
+     raw: cd /
+   - name: create db user
+     raw: sudo -u postgres createuser test
+   - name: creating directoties
+     raw: mkdir -p /srv/www/example.local/public_html/static
+   - name: mkdir
+     raw:  mkdir  /srv/www/example.local/application
+   - name: create dir
+     raw:  mkdir  /srv/www/example.local/logs
+   - name: create symlink
+     raw: ln -s /etc/nginx/sites-available/example.local /etc/nginx/sites-enabled/example.local
