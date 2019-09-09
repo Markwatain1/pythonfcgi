@@ -1,0 +1,5 @@
+!!First you need to make executable file test.sh by running command
+chmod +x test.sh
+Run test.sh before using ansible script (test.yml)
+
+
