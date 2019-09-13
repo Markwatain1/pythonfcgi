@@ -1,0 +1,258 @@
+---
+
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+
+    - name: apt-get update 
+      raw: apt-get update -y
+
+    - name: apt-get upgrade
+      raw: apt-get upgrade -y
+
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+
+    - name: install nginx and python
+      raw: apt-get install nginx-full python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools python uwsgi python-pip network-manager python3-dbus libnm-glib-dev -y
+
+    - name: install python-env
+      raw: sudo apt install python3-venv -y
+      
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+
+      - name: mkdir
+        raw:  mkdir /root/myproject
+
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+
+             - name: cd
+               shell: cd /root/myproject
+             - name: pip install pip
+               shell: pip install pip
+
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+
+
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks: 
+
+         
+         - name: copy file
+           copy: src=/root/pythonfcgi/copyfiles.sh dest=/root/myproject/ mode=0777
+
+         - name: chmod +x copyfiles.sh
+           raw: chmod +x /root/myproject/copyfiles.sh
+
+
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+
+     - name: copy file
+       copy: src=/root/pythonfcgi/wsgi.py dest=/root/myproject/ mode=0777
+         #remote_src: no
+
+     - name: copy file1
+       copy: src=/root/pythonfcgi/myproject.service dest=/root/myproject mode=0777
+
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+
+    - name: copy file
+      copy: src=/root/pythonfcgi/myproject dest=/root/myproject mode=0777
+
+    - name: copy file
+      copy: src=/root/pythonfcgi/myproject.ini dest=/root/myproject mode=0777
+
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+
+    - name: copy file
+      copy: src=/root/pythonfcgi/myproject.py dest=/root/myproject mode=0777
+
+    - name: copy file
+      copy: src=/root/pythonfcgi/netplan.yaml dest=/root/myproject mode=0777
+                    
+
+- name: copy files to dir
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+ 
+          #    - name: cd
+          #raw: cd /home/myproject
+        
+     - name: copy myproject
+       shell: cp /root/myproject/myproject /etc/nginx/sites-available/
+     - name: cp  /root/myproject/myproject.service /etc/systemd/system/
+       shell: cp  /root/myproject/myproject.service /etc/systemd/system/
+
+
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+
+    - name: venv
+      shell: python3.6 -m venv /root/myproject/myprojectenv
+
+    - name: venv2
+      raw: source /root/myproject/myprojectenv/bin/activate
+
+    - name: install wheel pip
+      raw: pip3 install wheel
+
+    - name: venv
+      shell: python3.6 -m venv /root/myproject/myprojectenv
+
+    - name: venv2
+      raw: source /root/myproject/myprojectenv/bin/activate
+
+
+    - name: install flask
+      raw: pip install uwsgi flask
+
+    - name: venv
+      shell: python3.6 -m venv /root/myproject/myprojectenv
+
+    - name: venv2
+      raw: source /root/myproject/myprojectenv/bin/activate
+
+
+    - name: install wsgi
+      shell: cd /root/myproject/myprojectenv/bin/
+
+    - name: install2
+      command: /root/myproject/myprojectenv/bin/pip install uwsgi flask
+
+    - name: install wsgi
+      raw: pip3 install uwsgi
+
+
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+
+          - name: create symlink
+            raw: ln -s /etc/nginx/sites-available/myproject /etc/nginx/sites-enabled
+
+
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+
+      - name: install postgre
+        raw: apt-get install postgresql -y
+      - name: cd
+        raw: cd /
+
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+
+         - name: create username postgre
+           raw:  sudo -u postgres createuser testuser123456i78
+
+         - name: create db
+           raw: sudo -u postgres createdb testdb123478
+
+
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+
+          - name: start project
+            raw: sudo systemctl start myproject
+
+          - name: enable project
+            raw: sudo systemctl enable myproject  
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+      
+      - name: rm /etc/nginx/sites-enabled/default
+        raw: rm /etc/nginx/sites-enabled/default
+
+      - name: restart nginx
+        raw:  systemctl restart nginx
+
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+
+          - name: start project
+            raw: sudo systemctl start network-manager
+
+          - name: enable project
+            raw: sudo systemctl enable network-manager
+
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+
+
+    - name: Add an Ethernet connection with static IP configuration
+      lineinfile:
+             dest: /etc/netplan/50-cloud-init.yaml
+             regexp: '^- 134.209.189.7/20$'
+             line: '10.0.0.2/18'
+             state: present
+
+    - name: Add an Ethernet connection with static IP configuration
+      lineinfile:
+                    dest: /etc/netplan/50-cloud-init.yaml
+                    regexp: '^gateway4: 134.209.176.1$'
+                    line: 'gateway4: 10.0.0.1'
+                    state: present
+- name: playbook
+  hosts: myhosts
+  gather_facts: false
+
+  tasks:
+
+     - name: netplan apply
+       raw: netplan apply
